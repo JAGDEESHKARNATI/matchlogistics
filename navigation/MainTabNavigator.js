@@ -1,16 +1,19 @@
 import React from 'react';
-import { Platform } from 'react-native';
+import { Platform, AsyncStorage } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
+// import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import ClassScreen from '../screens/ClassScreen';
+import StudentsScreen from '../screens/StudentsScreen';
+
 
 const ClassStack = createStackNavigator({
   class: ClassScreen
 })
+
 
 ClassStack.navigationOptions = {
   tabBarLabel: 'Class',
@@ -23,21 +26,21 @@ ClassStack.navigationOptions = {
 };
 
 
-const HomeStack = createStackNavigator({
-  Home: HomeScreen,
+const StudentsStack = createStackNavigator({
+  students: StudentsScreen,
 });
 
 
 
-HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
+StudentsStack.navigationOptions = {
+  tabBarLabel: 'Students',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
       name={
         Platform.OS === 'ios'
-          ? `graduation-cap${focused ? '' : '-outline'}`
-          : 'graduation-cap'
+          ? `ios-people`
+          : 'md-people'
       }
     />
   ),
@@ -48,11 +51,11 @@ const LinksStack = createStackNavigator({
 });
 
 LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+  tabBarLabel: 'Events',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
+      name={Platform.OS === 'ios' ? 'ios-calendar' : 'md-calendar'}
     />
   ),
 };
@@ -62,17 +65,40 @@ const SettingsStack = createStackNavigator({
 });
 
 SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
+  tabBarLabel: 'User',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+      name={Platform.OS === 'ios' ? 'ios-person' : 'md-person'}
     />
   ),
 };
 
 export default createBottomTabNavigator({
-  HomeStack,
+  ClassStack,
+  StudentsStack,
   LinksStack,
   SettingsStack,
 });
+
+// export default AsyncStorage.getItem('@IsTeacher').then((value) => {
+//   if(value) {
+//     return createBottomTabNavigator({
+//       ClassStack,
+//       HomeStack,
+//       LinksStack,
+//       SettingsStack,
+//     });
+//   } else {
+//     return createBottomTabNavigator({
+//       HomeStack,
+//       LinksStack,
+//       SettingsStack,
+//     });
+//   }
+// }
+// );
+
+// AsyncStorage.clear();
+
+
