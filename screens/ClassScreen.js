@@ -6,13 +6,14 @@ import { getClasses } from '../api';
 class ClassScreen extends Component {
 
     state = {
-        classes: []
+        classes: [],
     };
 
     async componentDidMount() {
         const classes = await getClasses();
         this.setState({classes});
     }
+    
     static navigationOptions = {
         title: 'Choose a Class',
         headerStyle: {
@@ -25,11 +26,12 @@ class ClassScreen extends Component {
     }
     render() {
         return(
-            <View>
+            <View style={{flex:1, alignItems: 'center', backgroundColor: "rgb(240, 240, 240)"}}>
                 {this.state.classes.map((val) => 
                     <ListItem
                         key={val.id}
                         title={`Class: ${val.class}`}
+                        style={{ marginTop: 10, borderRadius:5, padding: 5, width: '90%', backgroundColor: "rgb(255, 255, 255)"}}
                         chevron
                     />
                 )}

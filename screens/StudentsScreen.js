@@ -26,12 +26,13 @@ class StudentsScreen extends Component {
 
     render() {
         return(
-            <View>
+            <View style={{flex:1, alignItems: 'center', backgroundColor: "rgb(240, 240, 240)"}}>
                 {this.state.students.map((student) => 
                     <ListItem
                      leftAvatar={{
                          source: {uri: student.avatar_url}
                      }}
+                     style={{ marginTop: 10, borderRadius:5, padding: 5, width: '90%', backgroundColor: "rgb(255, 255, 255)"}}
                      key={student.id}
                      title={student.name}
                      chevron
